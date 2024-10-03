@@ -1,45 +1,37 @@
 #!/usr/bin/python3
-
-
-def sieve_of_eratosthenes(n):
-    """function find all primes up to n"""
-    primes = [True] * (n + 1)
-    p = 2
-    while (p * p <= n):
-        if primes[p]:
-            for i in range(p * p, n + 1, p):
-                primes[i] = False
-        p += 1
-    return [p for p in range(2, n + 1) if primes[p]]
-
-
 def isWinner(x, nums):
-    """Determine the winner after x rounds of the prime game"""
+    """Determines the winner of the prime number game."""
+    
     if not nums or x < 1:
         return None
 
-    # Find the maximum number in nums to calculate primes up to that number
+    # To store prime status of numbers up to the largest number in nums
     max_num = max(nums)
-    primes = sieve_of_eratosthenes(max_num)
+    primes = [True for _ in range(max_num + 1)]
+    primes[0], primes[1] = False, False  # 0 and 1 are not prime
 
+    # Implementing the Sieve of Eratosthenes to mark prime numbers
+    for i in range(2, int(max_num ** 0.5) + 1):
+        if primes[i]:
+            for j in range(i * i, max_num + 1, i):
+                primes[j] = False
+
+    # Counts for wins of Maria and Ben
     maria_wins = 0
     ben_wins = 0
 
-    # Simulate each round
+    # Loop through each round
     for n in nums:
-        prime_count = 0
-        for prime in primes:
-            if prime > n:
-                break
-            prime_count += 1
+        prime_count = sum(primes[2:n + 1])
 
-        # Maria wins if the prime count is odd, Ben wins if it's even
-        if prime_count % 2 == 1:
-            maria_wins += 1
-        else:
+        # If the count of primes is odd, Maria wins (she goes first)
+        # If it's even, Ben wins
+        if prime_count % 2 == 0:
             ben_wins += 1
+        else:
+            maria_wins += 1
 
-    # Determine the overall winner
+    # Determine the winner based on the number of wins
     if maria_wins > ben_wins:
         return "Maria"
     elif ben_wins > maria_wins:
