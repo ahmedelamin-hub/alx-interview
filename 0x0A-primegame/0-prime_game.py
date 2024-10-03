@@ -4,11 +4,11 @@
 
 def isWinner(x, nums):
     """
-    Determines who wins more rounds in a prime number game between Maria and Ben.
+    Determines who wins more rounds in a prime game between Maria and Ben.
 
     Args:
         x (int): The number of rounds to be played.
-        nums (list): A list where each value represents the upper limit for each round.
+        nums (list): A list where each value represents the upper limit
 
     Returns:
         str: Name of the player with more wins ("Maria" or "Ben").
@@ -55,7 +55,7 @@ def rm_multiples(ls, prime):
 
     Args:
         ls (list): List representing whether numbers are prime.
-        prime (int): The prime number whose multiples will be marked as non-prime.
+        prime (int): The prime number whose multiple
 
     Returns:
         None
